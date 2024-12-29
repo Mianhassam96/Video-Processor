@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { Copy, Download, Music, VideoOff } from "lucide-react";
 
 const Index = () => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -130,42 +131,97 @@ const Index = () => {
     }
   };
 
+  const copyVideoLink = () => {
+    if (videoUrl) {
+      navigator.clipboard.writeText(videoUrl).then(() => {
+        toast({
+          title: "Link copied!",
+          description: "Video link has been copied to clipboard.",
+        });
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-2xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold text-center">Video Processing App</h1>
-        
-        <div className="space-y-4">
-          <Input
-            type="file"
-            accept="video/*"
-            onChange={handleFileChange}
-            className="w-full"
-          />
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow p-8">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Video Processing App
+            </h1>
+            <p className="text-muted-foreground">
+              Upload, process, and download your videos with ease
+            </p>
+          </div>
           
-          {videoUrl && (
-            <div className="space-y-4">
-              <video 
-                src={videoUrl} 
-                controls 
-                className="w-full rounded-lg shadow-lg"
-              />
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button onClick={downloadVideo}>
-                  Download Original
-                </Button>
-                <Button onClick={downloadAudioOnly}>
-                  Download Audio Only
-                </Button>
-                <Button onClick={downloadVideoWithoutAudio}>
-                  Download Without Audio
-                </Button>
+          <div className="space-y-6">
+            <Input
+              type="file"
+              accept="video/*"
+              onChange={handleFileChange}
+              className="w-full"
+            />
+            
+            {videoUrl && (
+              <div className="space-y-6">
+                <video 
+                  src={videoUrl} 
+                  controls 
+                  className="w-full rounded-lg shadow-lg aspect-video bg-black"
+                />
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <Button 
+                    onClick={downloadVideo}
+                    className="w-full"
+                    variant="default"
+                  >
+                    <Download className="mr-2" />
+                    Download Original
+                  </Button>
+                  <Button 
+                    onClick={downloadAudioOnly}
+                    className="w-full"
+                    variant="secondary"
+                  >
+                    <Music className="mr-2" />
+                    Extract Audio
+                  </Button>
+                  <Button 
+                    onClick={downloadVideoWithoutAudio}
+                    className="w-full"
+                    variant="secondary"
+                  >
+                    <VideoOff className="mr-2" />
+                    Remove Audio
+                  </Button>
+                  <Button 
+                    onClick={copyVideoLink}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <Copy className="mr-2" />
+                    Copy Link
+                  </Button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
+      
+      <footer className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-8">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold mb-2">MultiMain</h2>
+          <p className="text-blue-100">
+            Transforming your video experience, one file at a time
+          </p>
+          <div className="mt-4 text-sm text-blue-200">
+            © {new Date().getFullYear()} MultiMain. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
