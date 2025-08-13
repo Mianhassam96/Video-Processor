@@ -9,20 +9,6 @@ Video-Processor is a powerful and user-friendly web application designed to simp
         Audio-only.
         No-audio (silent video).
 
-Features
-
-    Fast Processing: Built with Vite for optimized performance.
-    Modern UI: Styled using Tailwind CSS and shadcn-ui for a sleek interface.
-    Flexibility: Supports multiple download formats.
-    Strong Type Safety: Powered by TypeScript.
-
-Tech Stack
-
-    Vite: For blazing-fast builds and a great developer experience.
-    React: For building an interactive UI.
-    shadcn-ui: To enhance the design and functionality.
-    Tailwind CSS: For clean and responsive styling.
-    TypeScript: To ensure type safety and robustness.
 
 Installation
 
